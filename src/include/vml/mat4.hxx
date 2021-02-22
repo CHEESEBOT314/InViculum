@@ -8,7 +8,7 @@
  * This is a header file, please see source file in src/main instead
  */
 namespace vml {
-    struct mat4 {
+    struct alignas(16) mat4 {
         vec4 cols[4];
         mat4();
         mat4(float c00, float c01, float c02, float c03,

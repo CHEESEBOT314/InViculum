@@ -28,8 +28,7 @@ namespace resource::resource_manager {
     std::vector<uint8_t> read_binary_file(const std::string& file_name, const std::vector<std::string>& folders) {
         std::string full_path = info_p->folder;
         for (const std::string& d : folders) {
-            full_path = full_path.append(d);
-            full_path = full_path.append(&info_p->separator, 1);
+            full_path = full_path.append(d).append(&info_p->separator, 1);
         }
         full_path = full_path.append(file_name);
         std::ifstream file(full_path, std::ios::ate | std::ios::binary);

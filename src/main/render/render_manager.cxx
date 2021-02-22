@@ -60,7 +60,7 @@ namespace render::render_manager {
                                                                               vk::ShaderStageFlagBits::eFragment, frag,
                                                                               "main");
                 // Indicate the size of the push constants which store most of the information for rendering
-                vk::PushConstantRange push_constant_range = {vk::ShaderStageFlagBits::eVertex,
+                vk::PushConstantRange push_constant_range = {vk::ShaderStageFlagBits::eVertex | vk::ShaderStageFlagBits::eFragment,
                                                            0,
                                                            sizeof(push_constants)};
 
@@ -228,7 +228,7 @@ namespace render::render_manager {
          * @param first_instance - Offset into the instances to start
          */
         void draw(uint32_t vertex_count, uint32_t instance_count, uint32_t first_vertex, uint32_t first_instance) {
-            vulkan_wrapper::push_constants(info_p->current_pl->layout, vk::ShaderStageFlagBits::eVertex, 0, sizeof(push_constants), &info_p->current_pc);
+            vulkan_wrapper::push_constants(info_p->current_pl->layout, vk::ShaderStageFlagBits::eVertex | vk::ShaderStageFlagBits::eFragment, 0, sizeof(push_constants), &info_p->current_pc);
             vulkan_wrapper::draw(vertex_count, instance_count, first_vertex, first_instance);
         }
         // Draw the 2D rectangle used for the majority of this application described as (0, 0, 0), (1, 0, 0), (1, 1, 0) and (0, 1, 0)

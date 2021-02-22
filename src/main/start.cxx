@@ -46,7 +46,7 @@ int main(int argc, char** args) {
             break;
         }
     }
-    // Wait until all Vulkan processes have stoppped
+    // Wait until all Vulkan processes have stopped
     vulkan_wrapper::wait_idle();
 
     // Terminate everything

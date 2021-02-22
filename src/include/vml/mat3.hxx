@@ -8,7 +8,7 @@
  * This is a header file, please see source file in src/main instead
  */
 namespace vml {
-    struct mat3 {
+    struct alignas(16) mat3 {
         vec3 cols[3];
         mat3();
         mat3(float c00, float c01, float c02,

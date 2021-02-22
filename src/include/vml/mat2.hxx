@@ -7,7 +7,7 @@
  * This is a header file, please see source file in src/main instead
  */
 namespace vml {
-    struct mat2 {
+    struct alignas(16) mat2 {
         vec2 cols[2];
         mat2();
         mat2(float c00, float c01,

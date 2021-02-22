@@ -5,7 +5,7 @@
  * This is a header file, please see source file in src/main instead
  */
 namespace vml {
-    struct vec2 {
+    struct alignas(8) vec2 {
         float data[2];
         vec2();
         vec2(float x, float y);

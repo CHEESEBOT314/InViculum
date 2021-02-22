@@ -62,18 +62,18 @@ namespace vulkan_wrapper {
         std::unique_ptr<info> info_p;
 
 #ifdef DEBUG_MODE
-        VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
+        VKAPI_ATTR VkBool32 VKAPI_CALL debug_callback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
             printf("%s\n", pCallbackData->pMessage);
             return VK_FALSE;
         }
-        vk::Result createDebugUtilsMessengerEXT() {
+        vk::Result create_debug_utils_messenger_EXT() {
             vk::DebugUtilsMessengerCreateInfoEXT createInfo = {vk::DebugUtilsMessengerCreateFlagsEXT(),
                                                                vk::DebugUtilsMessageSeverityFlagBitsEXT::eVerbose | vk::DebugUtilsMessageSeverityFlagBitsEXT::eWarning | vk::DebugUtilsMessageSeverityFlagBitsEXT::eError,
                                                                vk::DebugUtilsMessageTypeFlagBitsEXT::eGeneral | vk::DebugUtilsMessageTypeFlagBitsEXT::eValidation | vk::DebugUtilsMessageTypeFlagBitsEXT::ePerformance,
-                                                               debugCallback};
+                                                               debug_callback};
             return info_p->instance.createDebugUtilsMessengerEXT(&createInfo, nullptr, &info_p->debugMessenger, info_p->dldi);
         }
-        void destroyDebugUtilsMessengerEXT() {
+        void destroy_debug_utils_messenger_EXT() {
             info_p->instance.destroyDebugUtilsMessengerEXT(info_p->debugMessenger, nullptr, info_p->dldi);
         }
 #endif
@@ -228,7 +228,7 @@ namespace vulkan_wrapper {
         // If DEBUG enabled, also check for enabled validation layers
 #ifdef DEBUG_MODE
         std::vector<vk::LayerProperties> layerProperties = vk::enumerateInstanceLayerProperties();
-        for (const char* layerName : validationLayers) {
+        for (const char* layerName : validation_layers) {
             bool found = false;
             for (const vk::LayerProperties& props : layerProperties) {
                 if (strcmp(layerName, props.layerName) == 0) {
@@ -327,7 +327,7 @@ namespace vulkan_wrapper {
         vk::DeviceCreateInfo device_create_info = {vk::DeviceCreateFlags(), static_cast<uint32_t>(queue_create_infos.size()), queue_create_infos.data(),
             
 #ifdef  DEBUG_MODE
-            static_cast<uint32_t>(validation_layers.size()), validationLayers.data(),
+            static_cast<uint32_t>(validation_layers.size()), validation_layers.data(),
 #else
             0, nullptr,
 #endif
@@ -794,7 +794,7 @@ namespace vulkan_wrapper {
         info_p->device.destroy();
 
 #ifdef DEBUG_MODE
-        destroyDebugUtilsMessengerEXT();
+        destroy_debug_utils_messenger_EXT();
 #endif
         info_p->instance.destroySurfaceKHR(info_p->surface);
         info_p->instance.destroy();

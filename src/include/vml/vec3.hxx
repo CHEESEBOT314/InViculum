@@ -7,7 +7,7 @@
  * This is a header file, please see source file in src/main instead
  */
 namespace vml {
-    struct vec3 {
+    struct alignas(16) vec3 {
         float data[3];
         vec3();
         vec3(float x, float y, float z);
